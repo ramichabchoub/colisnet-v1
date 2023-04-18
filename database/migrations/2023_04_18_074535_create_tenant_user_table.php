@@ -1,37 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTenantsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up(): void
     {
-        Schema::create('tenants', function (Blueprint $table) {
-            $table->id();
-
-            // your custom columns may go here
-
+        Schema::create('tenant_user', function (Blueprint $table) {
+            $table->foreignId('tenant_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
-            $table->json('data')->nullable();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down(): void
     {
-        Schema::dropIfExists('tenants');
+        Schema::dropIfExists('tenant_user');
     }
-}
+};
